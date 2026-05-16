@@ -1,5 +1,6 @@
 #include "lib.h"
 #include <limits>
+#include <string>
 
 //---------------------------------------------------------------------------
 int main(int, char **) 

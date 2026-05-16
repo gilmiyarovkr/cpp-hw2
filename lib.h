@@ -3,8 +3,7 @@
 #include <iostream>
 #include <stdint.h>
 #include <vector>
-#include <string>
-#include <sstream>
+#include <string_view>
 #include <algorithm>
 
 int version();
