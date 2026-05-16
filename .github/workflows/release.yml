@@ -15,16 +15,16 @@ jobs:
         with:
           submodules: true
       # Установка зависимостей
-      - name: install dependencies
-        run: |
-          sudo apt-get update 
-          sudo apt-get install libboost-test-dev -y
+      # - name: install dependencies
+      #   run: |
+      #     sudo apt-get update 
+      #     sudo apt-get install libboost-test-dev -y
       # Конфигурация проекта
       - name: configure cmake
         run: |
           cmake -B build \
             -DPATCH_VERSION=${{ github.run_number }} \
-            -DWITH_BOOST_TEST=ON \
+            -DWITH_BOOST_TEST=OFF \
             -DWITH_GOOGLE_TEST=ON
       # Сборка проекта 
       - name: build project

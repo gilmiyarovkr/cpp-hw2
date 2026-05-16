@@ -1,6 +1,5 @@
 #include "lib.h"
 #include <charconv>
-#include <string_view>
 #include "version.h"
 
 //---------------------------------------------------------------------------

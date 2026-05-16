@@ -15,7 +15,7 @@ if(WITH_BOOST_TEST OR WITH_GOOGLE_TEST)
 endif()
 
 # Настройки компилятора
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Генерация header файла с версией
@@ -68,7 +68,7 @@ if(WITH_GOOGLE_TEST)
       googletest
       # URL !!! тут должна быть сслыка на архив
       GIT_REPOSITORY https://github.com/google/googletest.git
-      GIT_TAG v1.16.0 # последняя версия которая поддерживает С++14
+      # GIT_TAG v1.16.0 # последняя версия которая поддерживает С++14
     )
     # Исключение тестов самого GoogleTest
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
