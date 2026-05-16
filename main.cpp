@@ -8,7 +8,11 @@ int main(int, char **)
     std::vector<std::vector<uint8_t>> ip;
     while(std::getline(std::cin, line, '\t'))
     {
-        ip.push_back(splitIpToNum(line, '.'));
+        auto res = splitIpToNum(line, '.');
+        if(res.size() == 4)
+        {
+            ip.push_back(res);
+        }
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 

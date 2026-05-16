@@ -10,7 +10,7 @@
 int version();
 
 //---------------------------------------------------------------------------
-std::vector<uint8_t> splitIpToNum(const std::string &s, char delim);
+std::vector<uint8_t> splitIpToNum(std::string_view s, const char delim = '.');
 
 //---------------------------------------------------------------------------
 template <typename Func>
