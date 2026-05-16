@@ -1,5 +1,6 @@
 #include "lib.h"
 
+#include <iostream>
 #include <limits>
 #include <sstream>
 #include <algorithm>
