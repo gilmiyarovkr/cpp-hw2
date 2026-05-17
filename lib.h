@@ -12,19 +12,23 @@ int version();
 std::vector<uint8_t> splitIpToNum(std::string_view s, const char delim = '.');
 
 //---------------------------------------------------------------------------
+std::vector<std::vector<uint8_t>> loadIpAddresses(std::istream& input);
+
+//---------------------------------------------------------------------------
 template <typename Func>
-void coutByCondition(const std::vector<std::vector<uint8_t>>& vec, Func condition)
+void outIpByCondition(std::ostream& out, const std::vector<std::vector<uint8_t>>& vec, Func condition)
 {
-    auto it = vec.begin();
-    while ((it = std::find_if(it, vec.end(), condition)) != vec.end())
+    for (const auto& ip : vec)
     {
-        if(it->size() >= 4) // Несмотря на то что это проверяется в регулярке
+        if(ip.size() >= 4 && condition(ip))
         {
-            std::cout << int(it->data()[0]) << "."
-                      << int(it->data()[1]) << "."
-                      << int(it->data()[2]) << "."
-                      << int(it->data()[3]) << std::endl;
+            out << static_cast<int>(ip[0]) << "."
+                << static_cast<int>(ip[1]) << "."
+                << static_cast<int>(ip[2]) << "."
+                << static_cast<int>(ip[3]) << "\n";
         }
-        ++it;
     }
 }
+
+//---------------------------------------------------------------------------
+void processIpFilter(std::istream& input, std::ostream& output);
