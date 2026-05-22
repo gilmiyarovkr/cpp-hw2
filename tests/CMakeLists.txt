@@ -1,18 +1,4 @@
 #----------------------------------------------------------------------------
-# Boost tests
-#if(WITH_BOOST_TEST)
-#    find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-
-#    add_executable(test_version btest_version.cpp)
-
-#    target_link_libraries(test_version
-#        PRIVATE Boost::unit_test_framework ip_filter compiler_flags
-#    )
-
-#    add_test(NAME test_version COMMAND test_version --log_level=all)
-#endif()
-
-#----------------------------------------------------------------------------
 # Google tests
 if(WITH_GOOGLE_TEST)
     include(FetchContent)
@@ -38,7 +24,7 @@ if(WITH_GOOGLE_TEST)
 
     # Линкуемся с GTest::gtest_main (автоматически добавляет функцию main())
     target_link_libraries(test_gtest
-        PRIVATE GTest::gtest_main ${project_name}_lib compiler_flags
+        PRIVATE GTest::gtest_main ${PROJECT_NAME}_lib compiler_flags
     )
 
     gtest_discover_tests(test_gtest)

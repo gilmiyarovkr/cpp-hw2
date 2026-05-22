@@ -1,4 +1,4 @@
-#include "ip_address.h"
+#include <ip_filter/ip_address.h>
 
 bool IpAddress::fromString(std::string_view ip, IpAddress& out_ip, char delimiter)
 {
@@ -34,7 +34,7 @@ bool IpAddress::fromString(std::string_view ip, IpAddress& out_ip, char delimite
         }
         else if (ch >= '0' && ch <= '9')
         {
-            octet = octet * 10 + (ch - '0');
+            octet = octet * 10 + (static_cast<uint32_t>(ch)- static_cast<uint32_t>('0'));
             digit_count++;
 
             if (digit_count > 3)

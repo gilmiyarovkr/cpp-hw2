@@ -1,18 +1,8 @@
-// #include <fstream>
-#include "ip_filter.h"
+#include <ip_filter/ip_filter.h>
 
 //---------------------------------------------------------------------------
 int main(int, char **) 
 {
-// #ifdef __linux__
-//     processIpFilter(std::cin, std::cout);
-// #else
-//     const char* fileName = "D:/Common/Gilmiyarov/qt_workspace/cpp-hw2/ip_filter.tsv";
-//     std::ifstream file(fileName);
-
-//     processIpFilter(file, std::cout);
-// #endif
-
     IpFilter filter;
 
     // Читаем данные из стандартного ввода (например, cin или файла)

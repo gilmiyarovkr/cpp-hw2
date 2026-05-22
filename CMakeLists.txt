@@ -1,52 +1,44 @@
 cmake_minimum_required(VERSION 3.14)
 
-# set the project name
-set(project_name "ip_filter")
+#----------------------------------------------------------------------------
+# Project
+project(ip_filter
+        VERSION 0.0
+        LANGUAGES C CXX)
 
 # Формирование версии проекта
 set(PATCH_VERSION "1" CACHE STRING "Patch version")
-set(PROJECT_VERSION 0.0.${PATCH_VERSION})
+set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PATCH_VERSION})
 
 #----------------------------------------------------------------------------
 # Опции сборки
-# option(WITH_BOOST_TEST "Build BoostTest tests" ON)
 option(WITH_GOOGLE_TEST "Build GoogleTest tests" ON)
+option(ENABLE_CCACHE "Enable CCACHE for building" ON)
 
-if(WITH_BOOST_TEST OR WITH_GOOGLE_TEST)
+if(WITH_GOOGLE_TEST)
     enable_testing()
 endif()
 
-#----------------------------------------------------------------------------
-# Project
-project(${project_name} 
-        VERSION ${PROJECT_VERSION}
-        LANGUAGES C CXX)
+# Настройка путей для модулей
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-# Настройки компилятора
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF) # Отключаем compiler-specific расширения для чистой переносимости
-
-# Опции компиляции
-add_library(compiler_flags INTERFACE)
-if (MSVC)
-    target_compile_options(compiler_flags INTERFACE /W4)
-else ()
-    target_compile_options(compiler_flags INTERFACE -Wall -Wextra -pedantic -Werror)
+# Флаги компилятора
+include(CompilerFlags)
+# Использование ccache для ускорения компиляции
+if (ENABLE_CCACHE)
+    include(enable-ccache)
+else()
+    message(STATUS "Ccache is disabled")
 endif()
 
-#target_link_libraries(ip_filter_cli PRIVATE compiler_flags)
-#target_link_libraries(${project_name} PRIVATE compiler_flags)
-
+#----------------------------------------------------------------------------
 # Подключаем папки с исходным кодом и тестами
-add_subdirectory(source)
-add_subdirectory(tests)
+add_subdirectory(library)
+add_subdirectory(app)
+if(WITH_GOOGLE_TEST)
+    add_subdirectory(tests)
+endif()
 
 #----------------------------------------------------------------------------
-# Установка и создание DEB пакета через CPack
-set(CPACK_GENERATOR DEB)
-set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
-set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
-set(CPACK_PACKAGE_CONTACT "example@example.com")
-include(CPack)
+# Подключение модуля упаковки в DEB
+include(Packaging)

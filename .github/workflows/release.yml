@@ -24,7 +24,6 @@ jobs:
         run: |
           cmake -B build \
             -DPATCH_VERSION=${{ github.run_number }} \
-            -DWITH_BOOST_TEST=OFF \
             -DWITH_GOOGLE_TEST=ON
       # Сборка проекта 
       - name: build project
